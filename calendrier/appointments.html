@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments</title>
+</head>
+<body>
+
+    <h1>Appointments</h1>
+
+    <!-- Table to display the appointments -->
+    <table id="appointments-table" border="1">
+        <thead>
+            <tr>
+                <th>Patient Name</th>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Phone</th>
+                <th>Motif</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Appointments will be injected here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fetch appointments from the PHP file
+        fetch('fetchAppointments.php')
+            .then(response => response.json())
+            .then(data => {
+                // Log the fetched data for debugging
+                console.log('Fetched Appointments:', data);
+
+                // Get the table body element
+                const tableBody = document.querySelector('#appointments-table tbody');
+
+                // Clear existing rows (if any)
+                tableBody.innerHTML = '';
+
+                // Loop through appointments and add them to the table
+                data.forEach(appointment => {
+                    const row = document.createElement('tr');
+                    
+                    // Create cells for each field
+                    const nameCell = document.createElement('td');
+                    nameCell.textContent = appointment.title;
+
+                    const doctorCell = document.createElement('td');
+                    doctorCell.textContent = appointment.doctor;
+
+                    const dateCell = document.createElement('td');
+                    dateCell.textContent = appointment.start.split('T')[0]; // Extract date part from 'start'
+
+                    const timeCell = document.createElement('td');
+                    timeCell.textContent = appointment.start.split('T')[1]; // Extract time part from 'start'
+
+                    const phoneCell = document.createElement('td');
+                    phoneCell.textContent = appointment.phone;
+
+                    const motifCell = document.createElement('td');
+                    motifCell.textContent = appointment.motif;
+
+                    // Append cells to the row
+                    row.appendChild(nameCell);
+                    row.appendChild(doctorCell);
+                    row.appendChild(dateCell);
+                    row.appendChild(timeCell);
+                    row.appendChild(phoneCell);
+                    row.appendChild(motifCell);
+
+                    // Append the row to the table body
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching appointments:', error);
+            });
+    </script>
+
+</body>
+</html>

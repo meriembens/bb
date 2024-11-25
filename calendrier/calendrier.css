@@ -1,0 +1,231 @@
+.container {
+    margin: 0 auto; /* Center horizontally */
+    width: 100%; /* Use full width of parent container */
+    max-width: 1400px; /* Limit maximum width */
+    min-height: 90%; /* Ensure a minimum height */
+    height: auto; /* Adjust height dynamically based on content */
+    border-radius: 15px; /* Rounded corners */
+    box-sizing: border-box; /* Include padding and borders in size */
+    display: flex; /* Flexbox for layout */
+    flex-direction: column; /* Stack child elements vertically */
+}
+
+#year {
+    color: #107AFD;
+    margin-right: 30px;
+    font-size: 40px;
+}
+
+.header {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px;
+    margin-top: 90px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+/* Day cells to accommodate appointment containers */
+.grid .day {
+    background-color: #fff;
+    color: #333;
+    font-size: 12px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    min-height: 120px; /* Ensure enough height for appointments */
+    width: 160px;
+    height: auto; /* Dynamic height based on the content inside */
+}
+
+/* Appointment container with scrolling if there are more than 3 appointments */
+.appointment-container {
+    max-height: 60px;  /* Fixed height for the container */
+    overflow-y: auto;  /* Allow scrolling if appointments overflow */
+    display: flex;
+    flex-direction: column;  /* Stack the appointments */
+    margin-top: 5px;
+}
+    
+/* Styles for individual appointment blocks */
+.appointment {
+    color: black;
+    margin-bottom: 5px; /* Space between stacked appointments */
+    font-size: 12px;
+    border-radius: 4px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+}
+
+/* Scrollbar styles when there are more than 3 appointments */
+.appointment-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.appointment-container::-webkit-scrollbar-thumb {
+    background-color: #107AFD;
+    border-radius: 10px;
+}
+
+/* Hover effect for the day cell */
+.grid .day:hover {
+    background-color: #f0f0f0;
+}
+
+/* Overflow text if there are more than 3 appointments */
+.overflow-text {
+    color: #999;
+    font-size: 12px;
+    padding: 5px 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.overflow-text:hover {
+    color: #107AFD;  /* Optional: change color on hover */
+}
+
+
+.header h1 {
+    font-size: 36px; /* Increased size for better readability */
+    font-weight: 600; /* Bold weight */
+    margin: 0 20px 0 0; /* Right margin for spacing */
+    font-family: 'Poppins', sans-serif;
+}
+
+.header .left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.header .right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+button {
+    all: unset;
+}
+
+select {
+    appearance: none;
+    font-family: 'Poppins', sans-serif !important;
+    padding: 7px 20px 7px 12px;
+    border: 1px solid #bcbbbb;
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    color: #474646;
+}
+
+.selection {
+    position: relative;
+    display: inline-block;
+    width: 205px;
+}
+
+.selection::after {
+    content: "\f078";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    right: 25px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #bcbbbb;
+}
+
+.ajouter {
+    font-family: 'Poppins', sans-serif;
+    background-color: #107AFD;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 20px;
+}
+
+/* Saturday, Sunday, etc... */
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); 
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin-top: 7px;
+    font-weight: bold;
+    color: rgb(170, 167, 167);
+    font-size: 14px; 
+    padding: 5px;
+}
+
+/* Day numbers (1, 2, 3, etc...) */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); 
+    margin-top: 10px;
+}
+
+
+.grid .day:nth-child(7n-6), 
+.grid .day:nth-child(7n) {   
+    background-color: #f0f0f0;  
+}
+
+.grid .empty {
+    border: 1px solid #f0f0f0;
+}
+
+.grid .day:hover {
+    background-color: #f0f0f0;
+}
+
+.day.current-day {
+    position: relative;
+}
+
+.day.current-day::before {
+    content: attr(data-day); /* Display the day number */
+    position: absolute;
+    top: 2px; 
+    left: 1px; 
+    width: 22px; 
+    height: 22px; 
+    line-height: 25px; 
+    border-radius: 50%; 
+    text-align: center; 
+    background-color: #107AFD;
+    font-weight: bold; 
+    z-index: 1; 
+    color: white;
+}
+
+.unclickable {
+    color: #ccc;
+    pointer-events: none;
+}

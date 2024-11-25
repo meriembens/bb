@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier Rendez-vous</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .slots button {
+            margin: 5px;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+
+        .slots button.selected {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Modal -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+                <h2>Modifier Rendez-vous</h2>
+                <form id="editAppointmentForm">
+                    <label for="edit-prenom">Prénom du Patient:</label>
+                    <input type="text" id="edit-prenom" name="prenom_patient" class="form-control mb-3" placeholder="Le prénom du patient" required />
+
+                    <label for="edit-nom">Nom du Patient:</label>
+                    <input type="text" id="edit-nom" name="nom_patient" class="form-control mb-3" placeholder="Le nom du patient" required />
+
+                    <label for="edit-phone">Numéro de Téléphone:</label>
+                    <input type="text" id="edit-phone" name="phone" class="form-control mb-3" placeholder="Numéro de téléphone du patient" required pattern="\d{10}" />
+
+                    <label for="edit-motif">Motif:</label>
+                    <select id="edit-motif" name="motif" class="form-select mb-3" required>
+                        <option value="" disabled selected>Choisir un motif</option>
+                        <option value="Consultation générale">Consultation générale</option>
+                        <option value="Blanchiment dentaire">Blanchiment dentaire</option>
+                        <option value="Détartrage et nettoyage">Détartrage et Nettoyage</option>
+                        <option value="Orthodontie">Orthodontie (appareil dentaire)</option>
+                        <option value="Soin des caries">Soins des caries</option>
+                        <option value="Implant dentaire">Implants dentaires</option>
+                        <option value="Traitement de canal">Traitement de canal</option>
+                        <option value="Prothèse dentaire">Prothèses dentaires</option>
+                    </select>
+
+                    <label for="edit-nom_docteur">Dentiste:</label>
+                    <select id="edit-nom_docteur" name="nom_docteur" class="form-select mb-3" required>
+                        <option value="" disabled selected>Choisir un médecin</option>
+                    </select>
+
+                    <label for="edit-appointmentDate">Date:</label>
+                    <input type="text" id="edit-appointmentDate" name="date" class="form-control mb-3" placeholder="Sélectionnez une date" required />
+
+                    <label for="edit-selectedTime">Heure:</label>
+                    <div class="slots mb-3"></div>
+                    <input type="hidden" id="edit-selectedTime" name="time" />
+
+                    <button type="button" id="save-edit" class="btn btn-primary">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(appointment) {
+            // Set form values with data from the clicked appointment
+            document.getElementById('edit-prenom').value = appointment.prenompatient;
+            document.getElementById('edit-nom').value = appointment.nompatient;
+            document.getElementById('edit-phone').value = appointment.phone;
+            document.getElementById('edit-motif').value = appointment.motif;
+            document.getElementById('edit-nom_docteur').value = appointment.doctor;
+            document.getElementById('edit-appointmentDate').value = appointment.date;
+            
+            // Open the modal
+            document.getElementById('editModal').style.display = 'block';  // Changed from flex to block
+        }
+    
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+    
+        // Function to handle appointment click and open the modal with appointment data
+        function handleAppointmentClick(appointment) {
+            openModal(appointment);
+        }
+    
+        // Fetch and display appointments
+        function fetchAppointments() {
+            fetch('fetchAppointments.php') 
+                .then(response => response.json())
+                .then(appointments => {
+                    appointments.forEach(appointment => {
+                        // Add a click event to each appointment
+                        const appointmentDetails = document.createElement('div');
+                        appointmentDetails.classList.add('appointment');
+                        appointmentDetails.textContent = `${appointment.title} - ${appointment.doctor}`;
+    
+                        appointmentDetails.addEventListener('click', () => handleAppointmentClick(appointment));
+    
+                        // Assume `appointments-container` is the container for all appointments
+                        document.getElementById('appointments-container').appendChild(appointmentDetails);
+                    });
+                })
+                .catch(error => console.error('Error fetching appointments:', error));
+        }
+    
+        // Initialize example
+        fetchAppointments(); // Call to populate appointments on page load
+    </script>
+    
+</body>
+</html>

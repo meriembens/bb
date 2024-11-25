@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détails du Jour</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="day.css">
+  <link rel="stylesheet" href="sidehead.css">
+</head>
+<body>
+    <header class="headerr fixed-top">
+        <div class="h-bar">
+          <div class="logo">
+            <img src="images/logo.jpeg" alt="Logo">
+            <a href="index.php" style="text-decoration:none;">
+              <h1>Cabinet<span class="highlight">Plus</span></h1>
+            </a>
+          </div>
+          <nav class="nav-q">
+            <a href="#">Accueil</a>
+            <a href="#">Patients</a>
+            <a href="#">Prothèses</a>
+            <a href="#">Calendrier</a>
+          </nav>
+          <button class="cnx">Connexion</button>
+    
+        </div>
+      </header>
+      <main>
+        <div class="side-nav">
+          <div class="user">
+            <img src="images/doctor.jpeg" class="user-img">
+            <div>
+              <h2>Dr Belhedid Ibtissem</h2>
+              <p>ibtissembelhedid@gmail.com</p>
+            </div>
+          </div>
+          <div class="icons">
+          <ul>
+            <a href="index.php">
+              <li><img src="images/dashboard.png">
+                <p>Dashboard</p>
+              </li>
+            </a>
+            <a href="#">
+              <li><img src="images/members.png">
+                <p>Page de clients</p>
+              </li>
+            </a>
+            <a href="#">
+              <li><img src="images/rewards.png">
+                <p>Page de produits</p>
+              </li>
+            </a>
+            <a href="#">
+              <li><img src="images/projects.png">
+                <p>Bon d'achat</p>
+              </li>
+            </a>
+            <a href="#">
+              <li><img src="images/setting.png">
+                <p>Fournisseur</p>
+              </li>
+            </a>
+          </ul>
+    
+          <ul>
+            <li><img src="images/logout.png">
+              <p>Deconnexion</p>
+            </li>
+          </ul>
+        </div>
+        </div>
+
+
+  <div class="container">
+
+    <div class="header">
+
+      <div class="left">
+      <div class="buttons">
+        <button onclick="window.location.href='calendar.html'">
+          <i class="fa-solid fa-chevron-left"></i> Retour au calendrier
+        </button>
+      </div>
+    <div id="dateDetails">
+      <div id="day"></div>
+      <div id="month"></div>
+      <div id="year"></div>
+    </div>
+    </div>
+
+    <div class="right">
+      <div class="selection">
+          <select id="filters">
+              <option value="tous">Tous les Docteurs</option>
+              <option value="Dr Keciour Nesma">Dr Keciour Nesma</option>
+              <option value="Dr Belhedid Ibtissem">Dr Belhedid Ibtissem</option>
+              <option value="Dr Bensalah Meriem">Dr Bensalah Meriem</option>
+              <option value="Dr Guerroumi Lynda">Dr Guerroumi Lynda</option>
+              <option value="Dr Bouchetara">Dr Bouchetara Ryane</option>
+            </select>            
+      </div>
+      <div class="ajouter">
+        <button id="ajouter" onclick="window.location.href='ajouterdv.html'"><i class="fa-solid fa-plus"></i>    Ajouter un Rendez-vous</button>
+      </div>
+  </div>
+  </div>
+    <div class="weekday" id="weekday"></div>
+    <div class="hours-containers" id="hours"></div>
+  </div>
+  </main>
+  <!-- Your main content -->
+<div id="calendar-container">
+  <!-- This will be where your calendar and appointment slots are displayed -->
+  <div id="hours"></div>
+</div>
+
+<!-- Form for editing and deleting appointments -->
+<div id="edit-form-container" style="display:none;">
+  <h2 style="color: #107AFD;
+  margin-bottom: 10px;
+  text-align: center;">Modifier le Rendez-vous</h2>
+    <p style="color: #555;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+      
+  ">Saisissez le formulaire ci-dessous pour modifier le rendez-vous</p>
+  <form id="editAppointmentForm" action="editAppointment.php" method="POST">
+    <table>
+        <tr>
+            <td>
+              <input type="hidden" id="appointment_id" name="appointment_id" value="">
+                <div class="prenom">
+                    <label for="edit-prenom">Le prénom du patient :</label>
+                    <input type="text" id="edit-prenom" name="prenom_patient" placeholder="Le prénom du patient" class="form-control mb-3" required />
+                </div>
+            </td>
+            <td>
+                <div class="nom">
+                    <label for="edit-nom">Le nom du patient :</label>
+                    <input type="text" id="edit-nom" name="nom_patient" placeholder="Le nom du patient" class="form-control mb-3" required />
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <div class="champ">
+                    <label for="edit-phone">Le numéro de téléphone du patient :</label>
+                    <input type="text" id="edit-phone" name="phone" placeholder="Numéro de téléphone du patient" class="form-control mb-3" required pattern="\d{10}" />
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="selectionn">
+                    <label for="edit-motif">Le motif :</label>
+                    <select id="edit-motif" name="motif" class="form-select mb-3" required>
+                        <option value="" disabled selected>Choisir un motif</option>
+                        <option value="Consultation générale">Consultation générale</option>
+                        <option value="Blanchiment dentaire">Blanchiment dentaire</option>
+                        <option value="Détartrage et nettoyage">Détartrage et Nettoyage</option>
+                        <option value="Orthodontie">Orthodontie (appareil dentaire)</option>
+                        <option value="Soin des caries">Soins des caries</option>
+                        <option value="Implant dentaire">Implants dentaires</option>
+                        <option value="Traitement de canal">Traitement de canal</option>
+                        <option value="Prothèse dentaire">Prothèses dentaires</option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="selectionn">
+                    <label for="edit-nom_docteur">Le dentiste :</label>
+                    <select id="edit-nom_docteur" name="nom_docteur" class="form-select mb-3" required>
+                        <option value="" disabled selected>Choisir un médecin</option>
+                        <option value="Dr Keciour Nesma">Dr Keciour Nesma</option>
+                        <option value="Dr Belhedid Ibtissem">Dr Belhedid Ibtissem</option>
+                        <option value="Dr Bensalah Meriem">Dr Bensalah Meriem</option>
+                        <option value="Dr Guerroumi Lynda">Dr Guerroumi Lynda</option>
+                        <option value="Dr Bouchetara Ryane">Dr Bouchetara Ryane</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="date">
+                    <label for="edit-appointmentDate">Date :</label>
+                    <input type="text" id="edit-appointmentDate" name="date" class="form-control mb-3" placeholder="Sélectionnez une date" required />
+                </div>
+            </td>
+            <td>
+              <div id="timeSlots">
+                <label for="edit-selectedTime">Heure :</label>
+                  <input type="text" id="edit-selectedTime" name="time" class="form-control mb-3" />
+              </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button type="reset" id="cancel">Annuler</button>
+          </td>
+          <td>
+            <button type="submit" id="save-edit" class="enregistrer">Enregistrer</button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button type="button" id="delete-appointment" data-id="" class="supprimer">Supprimer le Rendez-vous</button>
+          </td>
+        </tr>
+    </table>
+</form>
+
+</div>
+  <script src="days.js"></script>
+  <script src="modifierdv.js"></script>
+</body>
+</html>

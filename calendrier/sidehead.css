@@ -1,0 +1,226 @@
+/* General Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+    margin: 0;
+    
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* Header Styling */
+.headerr {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    width: 100%;
+    z-index: 1001;
+    height: 80px;
+    position: fixed;
+    top: 0;
+}
+
+.h-bar {
+    height: 100px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 30px;
+    width: 40px;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    color: black;
+    font-weight: bold;
+    margin: 0;
+}
+
+.logo span {
+    color: #107AFD;
+}
+
+.nav-q {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-q a {
+    color: black;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 4px 12px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-q a:hover {
+    background-color: rgba(170, 211, 243, 0.7);
+    border-radius: 4px;
+}
+
+/* Base side-nav styling */
+.side-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 100vh;
+    background-image: linear-gradient(to bottom left, #c2ccd1, #f8f8f8);
+    color: #3a3a3a;
+    transition: width 0.3s ease;
+    z-index: 1000;
+    padding: 40px 10px;
+    overflow: hidden;
+}
+
+/* Expand on hover */
+.side-nav:hover {
+    width: 250px;
+}
+.cnx {
+    background-color: #107AFD; /* Blue color for the button */
+    border: none; /* Removes default border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 8px 14px; /* Adjusted padding for better appearance */
+    margin-left: 60px;
+    margin-bottom: 10px;
+    margin-right: -50px;
+    color: white; /* Text color */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+}
+
+.cnx:hover {
+    background-color: #609ae1; /* Slightly lighter blue for hover effect */
+    padding: 10px 16px; /* Subtle padding increase for hover */
+    transition: background-color 0.2s, padding 0.2s; /* Smooth transitions */
+}
+ul {
+    list-style: none;
+    padding: 0 15px;
+  }
+  
+  ul li {
+    margin: 30px 0;
+    display: flex;
+    align-items: left;
+    justify-content: flex-start;
+    cursor: pointer;
+  }
+  a {
+    text-decoration : none;
+  }
+  ul li img {
+    width: 30px;
+  }
+  
+  ul li p {
+    display: none;
+  }
+/* Side-nav content */
+.icons ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.icons ul li {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    cursor: pointer;
+    transition: padding-left 0.3s ease, background-color 0.3s ease;
+}
+
+.icons ul li img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.icons ul li p {
+    display: none; /* Hidden by default */
+}
+
+/* Show text on hover */
+.side-nav:hover ul li p {
+    display: block;
+}
+
+/* Hover effect for items */
+.icons ul li:hover {
+    background-color: rgba(199, 199, 212, 0.5);
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+/* User Section */
+.user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.user-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.user h2 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.user div {
+    display: none; /* Hidden by default */
+}
+
+/* Show user details when expanded */
+.side-nav:hover .user div {
+    display: block;
+}
+
+/* Table Styling */
+.table-f {
+    background-color: #95a4b4;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+p {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+/* Responsive for small screen sizes */
+@media (max-width: 768px) {
+    .side-nav {
+        width: 60px; /* Keep narrow */
+    }
+
+    .side-nav:hover {
+        width: 200px; /* Slightly narrower expansion */
+    }
+
+    }
